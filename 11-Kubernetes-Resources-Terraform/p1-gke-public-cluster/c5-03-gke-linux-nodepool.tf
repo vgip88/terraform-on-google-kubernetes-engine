@@ -1,4 +1,3 @@
-# Resource: GKE Node Pool 1
 resource "google_container_node_pool" "nodepool_1" {
   name       = "${local.name}-node-pool-1"
   location   = var.gcp_region1
@@ -7,6 +6,8 @@ resource "google_container_node_pool" "nodepool_1" {
   node_config {
     preemptible  = true
     machine_type = var.machine_type
+    disk_type    = "pd-standard"
+    disk_size_gb = 30
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
     service_account = google_service_account.gke_sa.email
     oauth_scopes    = [
